@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>J-PACASO White Paper: 新しい所有のカタチ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        .hero-gradient {
+            background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+        }
+        .section-gradient {
+            background: linear-gradient(180deg, rgba(10, 10, 10, 1) 0%, rgba(20, 22, 25, 1) 100%);
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(0, 199, 190, 0.5);
+        }
+        h1, h2, h3 {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            font-weight: 700;
+        }
+        .accent-text {
+            color: #00c7be;
+        }
+        .toc a {
+            transition: all 0.2s ease-in-out;
+            border-bottom: 2px solid transparent;
+        }
+        .toc a:hover {
+            color: #00c7be;
+            border-bottom-color: #00c7be;
+        }
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Custom Roadmap Styles */
+        .roadmap-container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 3rem;
+        }
+        .roadmap-item {
+            position: relative;
+            background-color: var(--bg-color);
+            color: white;
+            padding: 1rem 1.5rem;
+            text-align: center;
+            border-radius: 0.375rem; /* rounded-md */
+        }
+        .roadmap-item .content {
+            height: 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+         .roadmap-point {
+            position: relative;
+            padding-top: 3rem;
+            border-left: 2px solid #4a5568;
+            margin-left: 50%;
+        }
+        .roadmap-point::before {
+            content: '';
+            position: absolute;
+            top: 3rem;
+            left: -0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background-color: #cbd5e0;
+            border-radius: 9999px;
+            border: 3px solid #1a202c;
+        }
+         .roadmap-point-content {
+            margin-left: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .roadmap-container {
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 0;
+            }
+            .roadmap-item {
+                margin-bottom: 0;
+                margin-right: -2rem; /* Overlap */
+                width: 25%;
+                clip-path: polygon(0% 0%, calc(100% - 2rem) 0%, 100% 50%, calc(100% - 2rem) 100%, 0% 100%);
+                border-radius: 0;
+            }
+            .roadmap-item:first-child {
+                clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 50%, calc(100% - 2rem) 100%, 0 100%);
+            }
+            .roadmap-item:last-child {
+                clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+                margin-right: 0;
+            }
+            .roadmap-point, .roadmap-point-content { display: none; } /* Hide mobile timeline on desktop */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 bg-black/50 backdrop-blur-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold tracking-tight text-white">J-PACASO</h1>
+            <nav class="hidden md:flex space-x-6 text-sm toc">
+                <a href="#chapter1" class="text-gray-300 hover:text-white pb-1">第一章: 構想</a>
+                <a href="#chapter2" class="text-gray-300 hover:text-white pb-1">第二章: 課題と解決策</a>
+                <a href="#chapter3" class="text-gray-300 hover:text-white pb-1">第三章: 事業モデル</a>
+                <a href="#chapter4" class="text-gray-300 hover:text-white pb-1">第四章: 技術と戦略</a>
+                <a href="#chapter5" class="text-gray-300 hover:text-white pb-1">第五章: 未来へ</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="relative bg-cover bg-center text-white pt-48 pb-40 text-center" style="background-image: url('images/hero.png');">
+            <div class="absolute inset-0 bg-black opacity-50"></div>
+            <div class="container mx-auto px-6 relative">
+                <h1 class="text-4xl md:text-5xl lg:text-5xl font-bold tracking-tighter leading-tight mb-4 text-white">
+                    所有に、革命を。<br class="md:hidden"> <span class="accent-text">至福の時間</span>と<span class="accent-text">資産性</span>をすべての人へ。
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto text-gray-200 mb-8">
+                    J-PACASOは、Web3とAI技術を駆使し<br>高級セカンドハウスの共同所有を再定義します。
+                </p>
+            </div>
+        </section>
+
+        <!-- Chapter 1: パーパスとミッション -->
+        <section id="chapter1" class="py-20 md:py-28 section-gradient fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm uppercase tracking-widest text-gray-400">第一章: 構想</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-white mt-2">なぜJ-PACASOは存在するのか</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">I-1. 富の民主化と所有革命</h3>
+                        <p class="text-gray-300">一部の富裕層に集中していた資産を、テクノロジーの力で誰もがアクセス可能なものへ。私たちは共同所有を通じて、社会全体の富の再分配を促進し、新しいライフスタイルを提案します。</p>
+                    </div>
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">I-2. 米国PACASOの成功と示唆</h3>
+                        <p class="text-gray-300">創業5ヶ月でユニコーン企業となった米国PACASO社の成功は、このビジネスモデルの実証性の証です。我々はその成功モデルを日本市場に最適化し、さらに進化させます。</p>
+                    </div>
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">I-3. 日本の市場機会</h3>
+                        <p class="text-gray-300">年間90%以上が遊休資産となっている日本のセカンドハウス市場。この「もったいない」をシェアの力で価値に変え、「所有の新常識」を創造する巨大なブルーオーシャンが広がっています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Chapter 2: 課題提起と解決策 -->
+        <section id="chapter2" class="py-20 md:py-28 section-gradient fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm uppercase tracking-widest text-gray-400">第二章: 課題と解決策</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-white mt-2">従来の共同所有が抱える課題を、根本から解決へ</p>
+                </div>
+                <div class="bg-black/20 p-8 md:p-12 rounded-2xl border border-gray-800">
+                    <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+                        <div>
+                            <h3 class="text-2xl font-bold text-red-400 mb-6">【課題】従来の共同所有の問題点</h3>
+                            <ul class="space-y-4">
+                                <li class="card p-4 rounded-lg"><strong>資産性の課題:</strong> 「高くて、売りにくい」購入価格からの大幅な値下がり。</li>
+                                <li class="card p-4 rounded-lg"><strong>権利と透明性の課題:</strong> 複雑な契約形態と不明確な権利関係。</li>
+                                <li class="card p-4 rounded-lg"><strong>利用と公平性の課題:</strong> 利用日数の制限や意見の食い違いによるトラブル。</li>
+                                <li class="card p-4 rounded-lg"><strong>社会的な課題:</strong> 遊休資産の増加と富の独占。</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold accent-text mb-6">【解決策】J-PACASOの優位性</h3>
+                            <ul class="space-y-4">
+                                <li class="card p-4 rounded-lg border-l-4 border-cyan-500"><strong>確かな資産性:</strong> 実勢価格にペッグしたOwnerトークンによる流動性の確保。</li>
+                                <li class="card p-4 rounded-lg border-l-4 border-cyan-500"><strong>明確な権利と透明性:</strong> 「1物件=1合同会社」とブロックチェーンによる権利の可視化。</li>
+                                <li class="card p-4 rounded-lg border-l-4 border-cyan-500"><strong>公平な利用:</strong> トークンを活用したオークション形式など、公平な利用調整システム。</li>
+                                <li class="card p-4 rounded-lg border-l-4 border-cyan-500"><strong>社会課題への貢献:</strong> 遊休資産の有効活用と持続可能な社会の実現。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="mt-12 flex items-center justify-center">
+                         <img src="C:\Users\ryoji\00クライアント\GCT\J-PASACO_wp\images\j-PASACO.png" alt="課題と解決策の比較図" class="w-full max-w-4xl h-auto rounded-lg">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 3: 事業モデル -->
+        <section id="chapter3" class="py-20 md:py-28 section-gradient fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm uppercase tracking-widest text-gray-400">第三章: 事業モデル</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-white mt-2">持続可能で透明性の高いエコシステム</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="card p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">III-1. スキームの核</h3>
+                        <p class="text-gray-300"><strong>「1物件 = 1合同会社(LLC)」</strong>。このシンプルな構造が、所有形態を明確化し、法的な安定性と資産の保全を実現します。</p>
+                    </div>
+                    <div class="card p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">III-2. マネタイズ</h3>
+                        <p class="text-gray-300">物件販売時のサービス料（約12%）と、月額の運用管理費。透明性の高い料金体系で、事業の継続性とオーナーへの価値提供を両立させます。</p>
+                    </div>
+                    <div class="card p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">III-3. 市場規模とターゲット</h3>
+                        <p class="text-gray-300">アッパーマス層まで拡大した<strong>1145.5万世帯</strong>を対象とし、市場規模は<strong>約1.44兆円</strong>と試算。新たな巨大市場を開拓します。</p>
+                    </div>
+                    <div class="card p-6 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">III-4. 維持費軽減の仕組み</h3>
+                        <p class="text-gray-300">共同所有者の合意（51%以上）により、利用しない期間を貸別荘として運用。維持費を効率的に軽減し、所有の負担を最小化します。</p>
+                    </div>
+                </div>
+                <div class="mt-16 flex items-center justify-center">
+                    <img src="C:\Users\ryoji\00クライアント\GCT\J-PASACO_wp\images\j-PASACO.png" alt="事業モデルの全体像" class="w-full max-w-5xl h-auto rounded-lg">
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 4: 技術と戦略 -->
+        <section id="chapter4" class="py-20 md:py-28 section-gradient fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-sm uppercase tracking-widest text-gray-400">第四章: 技術と戦略</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-white mt-2">Web3時代のテクノロジーが築く、揺るぎない参入障壁</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card p-8 rounded-2xl space-y-6">
+                        <h3 class="text-2xl font-bold accent-text">IV-1. 法的安全性と合同会社型DAO</h3>
+                        <p>2024年4月施行の法改正を活用し、金商法上の規制適用が免除される合同会社型DAO法人を設立。法的に安全かつ、自律的な運営を実現します。</p>
+                        
+                        <h3 class="text-2xl font-bold accent-text">IV-2. 知的財産（IP）戦略</h3>
+                        <p>基本特許（4要素連動）に加え、AIや利用権トークンに関する周辺特許を取得。これらの強固な知的財産が、模倣不可能な参入障壁を構築します。</p>
+                    </div>
+                     <div class="flex items-center justify-center">
+                        <img src="C:\Users\ryoji\00クライアント\GCT\J-PASACO_wp\images\I4_01.png" alt="IP戦略" class="w-full h-auto rounded-lg">
+                    </div>
+                </div>
+                 <div class="grid md:grid-cols-2 gap-8 mt-8">
+                    <div class="flex items-center justify-center">
+                        <img src="C:\Users\ryoji\00クライアント\GCT\J-PASACO_wp\images\I4_03.png" alt="トケノミクス" class="w-full h-auto rounded-lg">
+                    </div>
+                    <div class="card p-8 rounded-2xl space-y-6">
+                        <h3 class="text-2xl font-bold accent-text">IV-3. トケノミクス設計</h3>
+                        <p><strong>Ownerトークン</strong>は実勢不動産価格にペッグし資産価値を担保。<strong>利用権トークン</strong>は利用の公平性を実現し、流動性を生み出します。精緻なトークン設計がエコシステムの心臓部です。</p>
+                        
+                        <h3 class="text-2xl font-bold accent-text">IV-4. 未来への技術連携</h3>
+                        <p>ステーブルコイン決済、DID/VC（分散型ID/検証可能な資格情報）連携など、将来的なWeb3環境とのシームレスな統合を見据え、拡張性の高いプラットフォームを構築します。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chapter 5: 未来への道筋 -->
+        <section id="chapter5" class="py-20 md:py-28 section-gradient fade-in-section">
+            <div class="container mx-auto px-6">
+                 <div class="text-center mb-16">
+                    <h2 class="text-sm uppercase tracking-widest text-gray-400">第五章: 未来への道筋</h2>
+                    <p class="text-3xl md:text-4xl font-bold text-white mt-2">Web2.5から完全なDAOへ、段階的進化のロードマップ</p>
+                </div>
+                <div class="my-12 px-4 flex justify-center">
+                    <img src="images/roadmap01.png" alt="Roadmap" class="w-full max-w-6xl h-auto rounded-lg">
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">V-1. 段階的進化のロードマップ</h3>
+                        <p class="text-gray-300">フェーズ1（初期設計）、フェーズ2（Web2.5でのサービスローンチ）、フェーズ3（DAOへの完全移行と本格展開）という段階的なアプローチで、着実に事業を拡大します。</p>
+                    </div>
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">V-2. 初期マイルストーン</h3>
+                        <p class="text-gray-300">法人設立準備、特許戦略の強化、シードマネー調達、そしてシステムプロトタイプの開発着手。具体的かつ迅速に初期計画を遂行します。</p>
+                    </div>
+                    <div class="card p-8 rounded-2xl">
+                        <h3 class="text-xl font-bold accent-text mb-3">V-3. チームと共創パートナー</h3>
+                        <p class="text-gray-300">この革命的な挑戦には、各分野の専門家の力が必要です。弁護士、会計士、不動産のプロフェッショナル、そしてビジョンを共有する共創パートナーを広く求めています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">共に、所有の未来を創造しませんか？</h2>
+            <p class="mb-6">J-PACASOプロジェクトへのご参加、ご支援に興味をお持ちの方は、ぜひご連絡ください。</p>
+            <a href="mailto:contact@j-pacaso.jp" class="inline-block bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-cyan-700 transition-colors">お問い合わせ</a>
+            <p class="text-sm mt-8">&copy; 2025 J-PACASO Project. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple fade-in on scroll animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                rootMargin: '0px',
+                threshold: 0.1
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+
+</body>
+</html>
+
